@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "ss": "webpack-cli & serve -s dist -l 8080",
     "serve": "webpack serve",
     "build": "webpack-cli",
     "lint": "vue-cli-service lint"
@@ -31,6 +32,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "copy-webpack-plugin": "^8.1.0",
     "css-loader": "^5.0.1",
     "eslint": "^7.9.0",
     "eslint-plugin-import": "^2.20.2",

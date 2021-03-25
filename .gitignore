@@ -1,3 +1,7 @@
+# Custom
+dist
+
+# End of Custom
 .DS_Store
 node_modules
 webpack-stats.json

@@ -1,8 +1,11 @@
 const path = require('path');
+const webpack = require('webpack');
+// Plugins
 const {VueLoaderPlugin} = require('vue-loader');
 const BundleTracker = require('webpack-bundle-tracker');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require('webpack');
+const CopyPlugin = require("copy-webpack-plugin");
+
 
 module.exports = (env = {}) => {
   return {
@@ -11,7 +14,7 @@ module.exports = (env = {}) => {
     devtool: env.prod ? false : "eval",
     entry: path.resolve(__dirname, './src/main.ts'),
     output: {
-      path: path.resolve(__dirname, '../static/dist'),
+      path: path.resolve(__dirname, './dist'),
       publicPath: "/static/",
       filename: "webpack-bundle.js",
       chunkFilename: "[id]-[chunkhash].js",
@@ -95,6 +98,11 @@ module.exports = (env = {}) => {
       new webpack.DefinePlugin({
         __VUE_OPTIONS_API__: JSON.stringify(true),
         __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
+      }),
+      new CopyPlugin({
+        patterns: [
+          {from: "public/index.html"}
+        ],
       }),
     ],
     devServer: {
