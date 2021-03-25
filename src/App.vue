@@ -26,13 +26,12 @@
     <br />
   </div>
 
-  <NavBar v-if="auth.authenticated"/>
-  <router-view v-if="auth.authenticated"/>
-
+  <NavBar v-if="auth.authenticated" />
+  <router-view v-if="auth.authenticated" />
 </template>
 
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import NavBar from "./components/NavBar.vue";
 // Auth
@@ -47,7 +46,7 @@ export default {
   components: {
     NavBar,
   },
-  setup(){
+  setup() {
     let auth = new AuthService();
     auth.handleAuthentication();
     auth.authenticated = false;
@@ -60,24 +59,28 @@ export default {
       message: "",
     };
   },
-methods: {
+  methods: {
     // this method calls the AuthService login() method
-    login () {
-      auth.login()
+    login() {
+      auth.login();
     },
-    handleAuthentication () {
-      auth.handleAuthentication()
+    handleAuthentication() {
+      auth.handleAuthentication();
     },
-    logout () {
-      auth.logout()
+    logout() {
+      auth.logout();
     },
-    privateMessage () {
-      const url = `${API_URL}/api/private/`
-      return axios.get(url, {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}}).then((response) => {
-        console.log(response.data)
-        this.message = response.data || ''
-      })
-    }
-  }
+    privateMessage() {
+      const url = `${API_URL}/api/private/`;
+      return axios
+        .get(url, {
+          headers: { Authorization: `Bearer ${auth.getAuthToken()}` },
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.message = response.data || "";
+        });
+    },
+  },
 };
 </script>
