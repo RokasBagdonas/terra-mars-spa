@@ -2,7 +2,7 @@
   <div>
     <button
       class="btn btn-primary btn-margin"
-      v-if="!auth.authenticated"
+      v-if="!authenticated"
       @click="login()"
     >
       Log In
@@ -10,52 +10,42 @@
 
     <button
       class="btn btn-primary btn-margin"
-      v-if="auth.authenticated"
+      v-if="authenticated"
       @click="privateMessage()"
     >
       Call Private
     </button>
+
     <button
       class="btn btn-primary btn-margin"
-      v-if="auth.authenticated"
+      v-if="authenticated"
       @click="logout()"
     >
       Log Out
     </button>
-    {{ message }}
+    {{ "{{ " }}{{ "message" }} }}
     <br />
   </div>
-
-  <NavBar v-if="auth.authenticated" />
-  <router-view v-if="auth.authenticated" />
 </template>
 
-
 <script>
-import Vue from "vue";
-import NavBar from "./components/NavBar.vue";
-// Auth
 import AuthService from "./auth/AuthService";
 import axios from "axios";
 
 const API_URL = "http://localhost:8000";
 const auth = new AuthService();
-// ------
-
 export default {
-  components: {
-    NavBar,
-  },
-  setup() {
-    let auth = new AuthService();
-    auth.handleAuthentication();
-    auth.authenticated = false;
+  name: "app",
+  data() {
+    this.handleAuthentication();
+    this.authenticated = false;
+
     auth.authNotifier.on("authChange", (authState) => {
-      auth.authenticated = authState.authenticated;
+      this.authenticated = authState.authenticated;
     });
 
     return {
-      auth,
+      authenticated: false,
       message: "",
     };
   },
@@ -71,7 +61,7 @@ export default {
       auth.logout();
     },
     privateMessage() {
-      const url = `${API_URL}/api/private/`;
+      const url = `${API_URL}/mars_api/private`;
       return axios
         .get(url, {
           headers: { Authorization: `Bearer ${auth.getAuthToken()}` },
