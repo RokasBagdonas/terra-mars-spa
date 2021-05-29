@@ -113,7 +113,7 @@ module.exports = (env = {}) => {
       inline: true,
       hot: true,
       stats: "minimal",
-      contentBase: __dirname,
+      contentBase: path.join(__dirname, "dist"),
       overlay: true,
       writeToDisk: true, // Write files to disk in dev mode, so Django can serve the assets
     }
