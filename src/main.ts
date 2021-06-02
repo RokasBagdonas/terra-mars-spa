@@ -7,8 +7,13 @@ import App from './App.vue';
 // Created
 import "./css/main.scss";
 import router from './router';
+// Other
+import AuthService from "./auth/AuthService";
 
 const app = createApp(App);
+
+//Glboal properties
+app.config.globalProperties.auth = new AuthService();
 
 const requireComponent = require.context(
   "./components/form-components/",

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = "/mars_api/";
+const ROOT_URL = "http://localhost:8000/mars_api/";
 
 const ENDPOINTS = {
   "games": "games/",
