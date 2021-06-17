@@ -1,7 +1,8 @@
 <template>
-  <!-- Authenticate or route to home -->
   <div v-if="authenticated">
-    <NavBar />
+    <NavBar/>
+    <!-- <HomeDashboard/> -->
+    <router-view/>
   </div>
 
   <div v-else>

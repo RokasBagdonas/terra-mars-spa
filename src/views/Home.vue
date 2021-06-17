@@ -1,5 +1,5 @@
 <template>
-<HomeDashboard> </HomeDashboard>
+ <HomeDashboard/>
 </template>
 
 <script lang="ts">
