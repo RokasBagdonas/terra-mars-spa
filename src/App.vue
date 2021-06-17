@@ -1,40 +1,25 @@
 <template>
-  <div>
-    <button
-      class="btn btn-primary btn-margin"
-      v-if="!authenticated"
-      @click="this.auth.login()"
-    >
-      Log In
-    </button>
-
-    <button
-      class="btn btn-primary btn-margin"
-      v-if="authenticated"
-      @click="privateMessage()"
-    >
-      Call Private
-    </button>
-
-    <button
-      class="btn btn-primary btn-margin"
-      v-if="authenticated"
-      @click="this.auth.logout()"
-    >
-      Log Out
-    </button>
-    <p>{{ message }}</p>
-    <p>Authenticated: {{ this.auth.isAuthenticated()}}</p>
-    <br />
+  <!-- Authenticate or route to home -->
+  <div v-if="authenticated">
+    <NavBar />
   </div>
+
+  <div v-else>
+    <Login/>
+  </div>
+
 </template>
 
 <script>
-import axios from "axios";
-const API_URL = "http://localhost:8000";
+import Login from "./components/Login";
+import NavBar from "./components/NavBar";
+import HomeDashboard from "./components/HomeDashboard";
 
 export default {
   name: "app",
+  components: {
+    NavBar, HomeDashboard, Login,
+  },
   data() {
     this.auth.handleAuthentication();
     this.authenticated = false;
@@ -47,19 +32,6 @@ export default {
       authenticated: false,
       message: "",
     };
-  },
-  methods: {
-    privateMessage() {
-      const url = `${API_URL}/mars_api/private`;
-      return axios
-        .get(url, {
-          headers: { Authorization: `Bearer ${this.auth.getAuthToken()}` },
-        })
-        .then((response) => {
-          console.log(response.data);
-          this.message = response.data || "";
-        });
-    },
   },
 };
 </script>
