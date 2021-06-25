@@ -13,7 +13,8 @@ import AuthService from "./auth/AuthService";
 const app = createApp(App);
 
 //Glboal properties
-app.config.globalProperties.auth = new AuthService();
+let auth = new AuthService();
+app.config.globalProperties.auth = auth;
 
 const requireComponent = require.context(
   "./components/form-components/",
@@ -34,3 +35,4 @@ requireComponent.keys().forEach(fileName => {
 
 app.use(router);
 app.mount('#app');
+export default auth;

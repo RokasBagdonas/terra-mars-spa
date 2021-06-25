@@ -13,7 +13,6 @@
       </div>
     </div>
   </div>
-  <router-view />
 </template>
 
 

@@ -1,4 +1,6 @@
+// @ts-nocheck
 import axios from 'axios';
+import auth from "./main";
 
 const ROOT_URL = "http://localhost:8000/mars_api/";
 
@@ -49,7 +51,8 @@ export function getGames(limit = 50, offset = 0, order_by = "-date") {
       limit: limit,
       offset: offset,
       ordering: order_by,
-    }
+    },
+    headers: { Authorization: `Bearer ${auth.getAuthToken()}` },
   });
 }
 
@@ -58,16 +61,19 @@ export function getGameScores(id) {
 }
 
 export async function getPlayers(){
-  return axios.get(ROOT_URL + ENDPOINTS["players"]);
+  return axios.get(ROOT_URL + ENDPOINTS["players"],
+     { headers: { Authorization: `Bearer ${auth.getAuthToken()}` }, });
 }
 
 
 export async function getMaps() {
-  return await axios.get(ROOT_URL + ENDPOINTS["maps"]);
+  return await axios.get(ROOT_URL + ENDPOINTS["maps"],
+     { headers: { Authorization: `Bearer ${auth.getAuthToken()}` }, });
 }
 
 export async function getCorporations() {
-  return await axios.get(ROOT_URL + ENDPOINTS["corporations"]);
+  return await axios.get(ROOT_URL + ENDPOINTS["corporations"],
+     { headers: { Authorization: `Bearer ${auth.getAuthToken()}` }, });
 }
 
 export function postGameScores(payload: String) {
@@ -75,7 +81,8 @@ export function postGameScores(payload: String) {
   return axios({
     url: ROOT_URL + ENDPOINTS["game_scores"], data: payload, method: "post", headers:
     {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+       Authorization: `Bearer ${auth.getAuthToken()}`
     }
   })
 }
