@@ -1,6 +1,7 @@
 import auth0 from 'auth0-js';
 import EventEmitter from 'eventemitter3';
 import router from './../router';
+import {SERVER_IP} from "../../deployment.config.js";
 
 export default class AuthService {
 
@@ -21,7 +22,7 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'dev-42pbtp73.eu.auth0.com',
     clientID: 'g7RlKNdpfzhAj4hfkIUoBuDkRxJ9uafS',
-    redirectUri: 'http://localhost:8080/',
+    redirectUri: `${SERVER_IP}:8080/`,
     audience: 'terra-mars',
     responseType: 'token id_token',
     scope: 'openid profile'

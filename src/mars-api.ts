@@ -1,8 +1,9 @@
 // @ts-nocheck
 import axios from 'axios';
 import auth from "./main";
+import {SERVER_IP} from "../deployment.config.js";
 
-const ROOT_URL = "http://localhost:8000/mars_api/";
+const ROOT_URL = `${SERVER_IP}:8000/mars_api/`;
 
 const ENDPOINTS = {
   "games": "games/",

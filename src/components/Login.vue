@@ -32,7 +32,8 @@
 
 <script>
 import axios from "axios";
-const API_URL = "http://localhost:8000";
+import {SERVER_IP} from "../../deployment.config.js";
+const API_URL = `${SERVER_IP}:8000`;
 
 export default {
   data() {
