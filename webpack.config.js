@@ -116,6 +116,9 @@ module.exports = (env = {}) => {
       contentBase: path.join(__dirname, "dist"),
       overlay: true,
       writeToDisk: true, // Write files to disk in dev mode, so Django can serve the assets
+      historyApiFallback: {
+        index: 'index.html'
+      },
     }
   };
 }
