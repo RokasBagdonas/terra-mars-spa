@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container is-fluid">
   <Suspense v-if="submittedNumberOfPlayers">
     <template #default>
       <PlayerScoresFormAsyncWrapper :playerScores="playerScores" />
@@ -84,7 +84,7 @@ export default {
     let playerScores = ref([]);
     let game = ref(new Game());
     game.value.number_of_generations = 10;
-    let numberOfPlayers = 2;
+    let numberOfPlayers = 3;
     let submittedNumberOfPlayers = new ref(null);
     let submitStatus = null;
     let submitted = ref(false);

@@ -1,6 +1,10 @@
 <template>
-  <div class="columns" v-if="playerScores.length > 0">
-    <div class="column" v-for="(score, index) in playerScores" :key="index">
+  <div class="columns is-centered is-multiline" v-if="playerScores.length > 0">
+    <div
+      class="column is-narrow"
+      v-for="(score, index) in playerScores"
+      :key="index"
+    >
       <PlayerScoreForm
         :playerScore="score.value"
         :CORPORATIONS="CORPORATIONS"
@@ -33,7 +37,6 @@ export default {
       PLAYERS,
     };
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
