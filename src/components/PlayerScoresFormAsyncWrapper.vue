@@ -11,10 +11,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
 import PlayerScoreForm from "./PlayerScoreForm";
 import { getPlayers, getCorporations } from "../mars-api";
-import { PlayerScore } from "../classes";
 
 export default {
   props: {

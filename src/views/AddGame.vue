@@ -1,34 +1,6 @@
 <template>
-  <div class="section">
-    <div class="level">
-      <div class="level-item">
-        <button class="button is-primary" type="button" @click="submitGame">
-          Add Game
-        </button>
-      </div>
-      <div class="modal" :class="{ 'is-active': submitted }">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-          <div class="box">
-            <p v-if="submitStatus == '201'">Successfully submitted :)</p>
-            <p v-else>
-              <vue-json-pretty :data="submitStatus" />
-            </p>
-          </div>
-        </div>
-        <button
-          class="modal-close is-large"
-          aria-label="close"
-          @click="submitted = false"
-        ></button>
-      </div>
-    </div>
-  </div>
-  <!--
-  <p> {{ game }}</p>
-  <p>{{ playerScores }}</p>
-  -->
 
+<div class="container">
   <Suspense>
     <template #default>
       <GameFormAsyncWrapper :game="game" />
@@ -51,12 +23,43 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="container">
   <Suspense v-if="submittedNumberOfPlayers">
     <template #default>
       <PlayerScoresFormAsyncWrapper :playerScores="playerScores" />
     </template>
     <template #fallback>Preparing player scores form...</template>
   </Suspense>
+</div>
+
+  <div class="container" v-if="playerScores.length > 0">
+    <div class="level">
+      <div class="level-item">
+        <button class="button" type="button" @click="submitGame">
+          Add Game
+        </button>
+      </div>
+      <div class="modal" :class="{ 'is-active': submitted }">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="box">
+            <p v-if="submitStatus == '201'">Successfully submitted :)</p>
+            <p v-else>
+              <vue-json-pretty :data="submitStatus" />
+            </p>
+          </div>
+        </div>
+        <button
+          class="modal-close is-large"
+          aria-label="close"
+          @click="submitted = false"
+        ></button>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 
