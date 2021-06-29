@@ -1,8 +1,4 @@
 <template>
-<!--
-  <div class="card">
-  <div class="card-header">
-  -->
     <BaseObjectSelect
       v-model="playerScore.player"
       label="Player"
@@ -15,12 +11,6 @@
       :options="CORPORATIONS"
     />
     <BaseCheckbox v-model="playerScore.is_winner" label="Won?" />
-    <!--
-  </div>
-  -->
-  <!--
-  <div class="card-content">
-  -->
     <div class="hero is-small is-primary">
       <div class="hero-body">
         <p>Total Score: {{ totalScore }}</p>
@@ -71,10 +61,6 @@
       label="Resources"
       type="number"
     />
-    <!--
-</div>
-  </div>
-  -->
 </template>
 
 
