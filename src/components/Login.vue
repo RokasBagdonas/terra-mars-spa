@@ -1,38 +1,26 @@
 <template>
-  <div v-if="!authenticated">
-    <button
-      class="btn btn-primary btn-margin"
-      v-if="!authenticated"
-      @click="this.auth.login()"
-    >
-      Log In
-    </button>
+  <div class="hero">
+    <div class="hero-body">
+      <p class="title">Welcome to tm-stats!</p>
+      <p class="subtitle">Login / register using Google account</p>
 
-    <button
-      class="btn btn-primary btn-margin"
-      v-if="authenticated"
-      @click="privateMessage()"
-    >
-      Call Private
-    </button>
+      <div class="control">
+        <button class="button" v-if="!authenticated" @click="this.auth.login()">
+          Log In
+        </button>
 
-    <button
-      class="btn btn-primary btn-margin"
-      v-if="authenticated"
-      @click="this.auth.logout()"
-    >
-      Log Out
-    </button>
-    <p>{{ message }}</p>
-    <p>Authenticated: {{ this.auth.isAuthenticated()}}</p>
-    <br />
+        <button class="button" v-if="authenticated" @click="this.auth.logout()">
+          Log Out
+        </button>
+        <br />
+      </div>
+    </div>
   </div>
-
 </template>
 
 <script>
+import { SERVER_IP } from "../../deployment.config.js";
 import axios from "axios";
-import {SERVER_IP} from "../../deployment.config.js";
 const API_URL = `${SERVER_IP}:8000`;
 
 export default {
@@ -50,17 +38,17 @@ export default {
     };
   },
   methods: {
-    privateMessage() {
-      const url = `${API_URL}/mars_api/private`;
-      return axios
-        .get(url, {
-          headers: { Authorization: `Bearer ${this.auth.getAuthToken()}` },
-        })
-        .then((response) => {
-          console.log(response.data);
-          this.message = response.data || "";
-        });
-    },
+    /*privateMessage() {*/
+    /*const url = `${API_URL}/mars_api/private`;*/
+    /*return axios*/
+    /*.get(url, {*/
+    /*headers: { Authorization: `Bearer ${this.auth.getAuthToken()}` },*/
+    /*})*/
+    /*.then((response) => {*/
+    /*console.log(response.data);*/
+    /*this.message = response.data || "";*/
+    /*});*/
+    /*},*/
   },
-}
+};
 </script>
