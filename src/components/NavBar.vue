@@ -20,13 +20,22 @@
             <a class="navbar-item" href="">About</a>
             <a class="navbar-item" href="/mars_api">API</a>
         </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <Logout/>
+          </div>
+        </div>
     </div>
   </nav>
 </template>
 
-<script lang="ts">
+<script>
+import Logout from "./Logout";
 
 export default {
+  components: {
+    Logout,
+  },
 methods: {
     toggleBurger: function(event) {
         const navbarTarget = event.target.dataset.target;

@@ -39,7 +39,6 @@ export default {
 
     this.auth.authNotifier.on("authChange", (authState) => {
       authenticated.value = authState.authenticated;
-      console.log("App.vue authState: " + this.authenticated);
     });
 
     return {
