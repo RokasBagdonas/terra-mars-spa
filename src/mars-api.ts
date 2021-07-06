@@ -1,7 +1,7 @@
 // @ts-nocheck
 import axios from 'axios';
-import auth from "./main";
 import {SERVER_IP} from "../deployment.config.js";
+import auth from "./main";
 
 const ROOT_URL = `${SERVER_IP}:8000/mars_api/`;
 
@@ -45,37 +45,43 @@ export const PLAYER_SCORE_SCHEMA = {
   game_id: "game_id"
 }
 
+auth_axios = axios.create({
+  baseURL: ROOT_URL,
+  headers: {
+    Authorization: `Bearer ${auth.getAuthToken()}`,
+  }
+})
+
 
 export function getGames(limit = 50, offset = 0, order_by = "-date") {
-  return axios.get(ROOT_URL + ENDPOINTS["games"], {
+  return auth_axios.get(ENDPOINTS["games"], {
     params: {
       limit: limit,
       offset: offset,
       ordering: order_by,
     },
-    headers: { Authorization: `Bearer ${auth.getAuthToken()}` },
-  });
+  })
 }
 
 export function getGameScores(id) {
   return axios.get(ROOT_URL + ENDPOINTS["game_scores"] + id,
-     { headers: { Authorization: `Bearer ${auth.getAuthToken()}` }, });
+    {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }
 
-export async function getPlayers(){
+export async function getPlayers() {
   return axios.get(ROOT_URL + ENDPOINTS["players"],
-     { headers: { Authorization: `Bearer ${auth.getAuthToken()}` }, });
+    {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }
 
 
 export async function getMaps() {
   return await axios.get(ROOT_URL + ENDPOINTS["maps"],
-     { headers: { Authorization: `Bearer ${auth.getAuthToken()}` }, });
+    {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }
 
 export async function getCorporations() {
   return await axios.get(ROOT_URL + ENDPOINTS["corporations"],
-     { headers: { Authorization: `Bearer ${auth.getAuthToken()}` }, });
+    {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }
 
 export function postGameScores(payload: String) {
@@ -84,7 +90,7 @@ export function postGameScores(payload: String) {
     url: ROOT_URL + ENDPOINTS["game_scores"], data: payload, method: "post", headers:
     {
       "Content-Type": "application/json",
-       Authorization: `Bearer ${auth.getAuthToken()}`
+      Authorization: `Bearer ${auth.getAuthToken()}`
     }
   })
 }
