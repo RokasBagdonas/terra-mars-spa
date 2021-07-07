@@ -12,16 +12,12 @@ import AuthService from "./auth/AuthService";
 
 const app = createApp(App);
 
-//Glboal properties
-let auth = new AuthService();
-app.config.globalProperties.auth = auth;
-
+// ============================================================================
 const requireComponent = require.context(
   "./components/form-components/",
   false,
   /Base[A-Z]\w+\.(vue|js)$/
 );
-
 
 requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName)
@@ -32,6 +28,12 @@ requireComponent.keys().forEach(fileName => {
 
   app.component(componentName, componentConfig.default || componentConfig)
 })
+
+//auth ========================================================================
+let auth = new AuthService();
+app.config.globalProperties.auth = auth;
+
+
 
 app.use(router);
 app.mount('#app');

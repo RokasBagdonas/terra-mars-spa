@@ -1,17 +1,19 @@
 // @ts-nocheck
-import axios from 'axios';
+import axios from "axios";
 import {SERVER_IP} from "../deployment.config.js";
 import auth from "./main";
 
 const ROOT_URL = `${SERVER_IP}:8000/mars_api/`;
+export default ROOT_URL;
 
 const ENDPOINTS = {
   "games": "games/",
   "players": "players/",
   "player_scores": "player_scores/",
+  "player_stats": "player_stats/",
   "game_scores": "game_scores/",
   "corporations": "corporations",
-  "maps": "maps"
+  "maps": "maps",
 }
 
 export const GAME_SCHEMA = {
@@ -43,14 +45,9 @@ export const PLAYER_SCORE_SCHEMA = {
   is_winner: "Won?",
   id: "score_id",
   game_id: "game_id"
-}
+};
 
-auth_axios = axios.create({
-  baseURL: ROOT_URL,
-  headers: {
-    Authorization: `Bearer ${auth.getAuthToken()}`,
-  }
-})
+//console.log(auth.getAuthToken());
 
 
 export function getGames(limit = 50, offset = 0, order_by = "-date") {
@@ -93,4 +90,10 @@ export function postGameScores(payload: String) {
       Authorization: `Bearer ${auth.getAuthToken()}`
     }
   })
+}
+
+// PlayerStats ================================================================
+export async function getPlayerStats(){
+  return await axios.get(ROOT_URL + ENDPOINTS["player_stats"],
+    {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }
