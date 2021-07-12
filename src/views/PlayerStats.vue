@@ -1,14 +1,39 @@
 <template>
-<h3 class="title-3">Player stats</h3>
-
+  <h3 class="title is-3">PlayerStats View</h3>
+  <div class="container">
+    <div v-for="ps in playersStats" v-bind:key="ps.id">
+      <PlayerStatsCard :playerStats="ps" />
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
-  // Goals:
-  // Display Players
-  // on click display stats -
-  // Update stats on click - trigger the job
+import { ref, onMounted } from "vue";
+import PlayerStatsCard from "../components/PlayerStatsCard";
+import { getPlayersStats } from "../mars-api.ts";
+import { PlayerStats } from "../classes.ts";
 
-}
+export default {
+  components: {
+    PlayerStatsCard,
+  },
+  setup() {
+    // 1. fetch player stats
+    let playersStats = ref([]);
+    const fetchPlayerStats = async () => {
+      let result = await getPlayersStats();
+      console.dir(result.data);
+      if (result.status != "200") console.error(result.status);
+      playersStats.value = result["data"]["results"].map(
+        (ps) => new PlayerStats(ps)
+      );
+    };
+
+    onMounted(fetchPlayerStats);
+
+    return {
+      playersStats,
+    };
+  },
+};
 </script>

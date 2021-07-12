@@ -94,7 +94,7 @@ export function postGameScores(payload: String) {
 }
 
 // PlayerStats ================================================================
-export async function getPlayerStats(){
+export async function getPlayersStats(){
   return await axios.get(ROOT_URL + ENDPOINTS["player_stats"],
     {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }

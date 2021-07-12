@@ -30,7 +30,10 @@ export class Game {
 }
 
 export class Player {
-  nickname: string = "";
+  id: number = 0;
+  nickname: string = "<none>";
+  motto: string = "-.-";
+  user: string = "";
 
   static playersToNicknameList(players: Array<Player>){
     let result = new Array<String>();
@@ -40,3 +43,20 @@ export class Player {
     return result;
   }
 }
+
+export class PlayerStats {
+  id: number = 0;
+  player: Player;
+  games_played: number = 0;
+  win_percentage: number = 0.0;
+  most_popular_corporation: string = "<none>";
+  average_number_of_players_in_games: number = 0.0;
+  last_updated: Date;
+
+  constructor(jsonObject = {}){
+    Object.assign(this, jsonObject);
+  }
+}
+
+
+
