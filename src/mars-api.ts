@@ -12,6 +12,7 @@ const ENDPOINTS = {
   "player_scores": "player_scores/",
   "player_stats": "player_stats/",
   "game_scores": "game_scores/",
+  "calc_player_stats": "player_stats/calc",
   "corporations": "corporations",
   "maps": "maps",
 }
@@ -51,7 +52,7 @@ export const PLAYER_SCORE_SCHEMA = {
 
 
 export function getGames(limit = 50, offset = 0, order_by = "-date") {
-  return auth_axios.get(ENDPOINTS["games"], {
+  return axios.get(ENDPOINTS["games"], {
     params: {
       limit: limit,
       offset: offset,
@@ -96,4 +97,10 @@ export function postGameScores(payload: String) {
 export async function getPlayerStats(){
   return await axios.get(ROOT_URL + ENDPOINTS["player_stats"],
     {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
+}
+
+export async function calcPlayerStats(player_id: String){
+  return await axios.put(ROOT_URL + ENDPOINTS["calc_player_stats"],
+    { params:  {player_id: player_id},
+      headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }
