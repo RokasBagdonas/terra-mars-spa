@@ -58,5 +58,14 @@ export class PlayerStats {
   }
 }
 
+export class GameScores {
+  game: Game;
+  playerScores: Array<PlayerScore> = [];
+
+  constructor(jsonObject = {}){
+    Object.assign(this, jsonObject);
+  }
+}
+
 
 
