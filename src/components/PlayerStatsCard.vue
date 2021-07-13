@@ -12,26 +12,45 @@
     <div class="card-content">
       <div class="tile is-ancestor is-parent">
         <div class="tile is-child box">
-          <p>Games played: <i class="has-text-primary">{{ playerStats.games_played }}</i></p>
-          <p>Winrate: <i :class="{'has-text-primary': ps.win_percentage > 0.4}"> {{ winrate }} </i> </p>
+          <p>
+            Games played:
+            <i class="has-text-primary">{{ playerStats.games_played }}</i>
+          </p>
+          <p>
+            Winrate:
+            <i :class="{ 'has-text-primary': ps.win_percentage > 0.4 }">
+              {{ winrate }}
+            </i>
+          </p>
           <p>
             Number of players in games:
-            <i class="has-text-primary">{{ playerStats.average_number_of_players_in_games
-            }} </i>
+            <i class="has-text-primary"
+              >{{ playerStats.average_number_of_players_in_games }}
+            </i>
           </p>
         </div>
         <div class="tile is-child box">
           <p>
-            Favourite corporation: <i class="has-text-primary">{{ playerStats.most_popular_corporation }}</i>
+            Favourite corporation:
+            <i class="has-text-primary">{{
+              playerStats.most_popular_corporation
+            }}</i>
           </p>
-          <p>
-            Last updated: {{ playerStats.last_updated }}
-          </p>
+          <p>Last updated: {{ playerStats.last_updated }}</p>
         </div>
       </div>
     </div>
     <footer class="card-footer">
-    <button class="card-footer-item button" @click="updatePlayerStats">Update stats</button>
+      <button
+        :class="[
+          'card-footer-item',
+          'button',
+          isCalculatingStats ? 'is-loading' : '',
+        ]"
+        @click="updatePlayerStats"
+      >
+        Update stats
+      </button>
     </footer>
   </div>
 </template>
@@ -48,31 +67,35 @@ export default {
       required: true,
     },
   },
-  setup(props){
+  setup(props) {
     let ps = reactive(props.playerStats);
+    let isCalculatingStats = ref(false);
 
     let winrate = ref(ps.win_percentage);
     const pretifyWinrate = watchEffect(() => {
       let wr = parseFloat(ps.win_percentage) * 100.0;
-      winrate.value = round(wr,2) + "%";
+      winrate.value = round(wr, 2) + "%";
     });
 
     const updatePlayerStats = () => {
+      isCalculatingStats.value = true;
       calcPlayerStats(ps.player.id)
         .then(function (response) {
           console.log(response.data);
-          if(response.status === 200){
+          if (response.status === 200) {
             ps = Object.assign(ps, new PlayerStats(response.data));
           }
         })
         .catch(function (error) {
           console.error(error);
-        });
+        })
+        .finally(() => (isCalculatingStats.value = false));
     };
     return {
       ps,
       winrate,
       updatePlayerStats,
+      isCalculatingStats,
     };
   },
 };
