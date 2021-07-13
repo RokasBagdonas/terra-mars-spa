@@ -100,7 +100,8 @@ export async function getPlayersStats(){
 }
 
 export async function calcPlayerStats(player_id: String){
-  return await axios.put(ROOT_URL + ENDPOINTS["calc_player_stats"],
-    { params:  {player_id: player_id},
+  return await axios.get(ROOT_URL + ENDPOINTS["calc_player_stats"],
+    {
+      params:  {player_id: player_id},
       headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }

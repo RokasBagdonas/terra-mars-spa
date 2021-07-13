@@ -26,7 +26,9 @@ export default {
       if (result.status != "200") console.error(result.status);
       playersStats.value = result["data"]["results"].map(
         (ps) => new PlayerStats(ps)
+      // sort players
       );
+      playersStats.value.sort((a, b) => a.games_played > b.games_played ? -1 : 1);
     };
 
     onMounted(fetchPlayerStats);
