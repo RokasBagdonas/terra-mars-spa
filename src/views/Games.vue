@@ -29,7 +29,7 @@
       <tbody>
         <tr v-for="game in games" v-bind:key="game"
         @click="setPickedGameId(game.id)">
-          <td v-for="(value, key) in game">{{ value }}</td>
+          <td v-for="(value, key) in game" :key="key">{{ value }}</td>
         </tr>
       </tbody>
     </table>

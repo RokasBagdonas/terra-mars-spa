@@ -48,16 +48,15 @@ export const PLAYER_SCORE_SCHEMA = {
   game_id: "game_id"
 };
 
-//console.log(auth.getAuthToken());
-
 
 export function getGames(limit = 50, offset = 0, order_by = "-date") {
-  return axios.get(ENDPOINTS["games"], {
+  return axios.get(ROOT_URL + ENDPOINTS["games"], {
     params: {
       limit: limit,
       offset: offset,
       ordering: order_by,
     },
+    headers: {Authorization: `Bearer ${auth.getAuthToken()}`},
   })
 }
 
