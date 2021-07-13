@@ -13,7 +13,7 @@
       <div class="tile is-ancestor is-parent">
         <div class="tile is-child box">
           <p>Games played: <i class="has-text-primary">{{ playerStats.games_played }}</i></p>
-          <p>{{ pretifyWinrate }}</p>
+          <p>Winrate: <i :class="{'has-text-primary': ps.win_percentage > 0.4}"> {{ winrate }} </i> </p>
           <p>
             Number of players in games:
             <i class="has-text-primary">{{ playerStats.average_number_of_players_in_games
@@ -32,14 +32,13 @@
     </div>
     <footer class="card-footer">
     <button class="card-footer-item button" @click="updatePlayerStats">Update stats</button>
-    <!--
-      /*<a href="#" class="card-footer-item" @click="updatePlayerStats">Recalculate stats</a>*/
-      -->
     </footer>
   </div>
 </template>
 <script>
 import { round } from "lodash";
+import { ref, reactive, watchEffect } from "vue";
+import { PlayerStats } from "../classes.ts";
 import { calcPlayerStats } from "../mars-api";
 
 export default {
@@ -49,22 +48,32 @@ export default {
       required: true,
     },
   },
-  methods: {
-    updatePlayerStats() {
-      calcPlayerStats(this.playerStats.player.id)
+  setup(props){
+    let ps = reactive(props.playerStats);
+
+    let winrate = ref(ps.win_percentage);
+    const pretifyWinrate = watchEffect(() => {
+      let wr = parseFloat(ps.win_percentage) * 100.0;
+      winrate.value = round(wr,2) + "%";
+    });
+
+    const updatePlayerStats = () => {
+      calcPlayerStats(ps.player.id)
         .then(function (response) {
           console.log(response.data);
+          if(response.status === 200){
+            ps = Object.assign(ps, new PlayerStats(response.data));
+          }
         })
         .catch(function (error) {
           console.error(error);
         });
-    },
-  },
-  computed: {
-    pretifyWinrate() {
-      let winrate = parseFloat(this.playerStats.win_percentage) * 100.0;
-      return round(winrate, 2) + "%";
-    },
+    };
+    return {
+      ps,
+      winrate,
+      updatePlayerStats,
+    };
   },
 };
 </script>
