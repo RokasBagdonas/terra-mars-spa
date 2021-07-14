@@ -27,6 +27,13 @@ export class Game {
   prelude: boolean = false;
   venus_next: boolean = false;
   colonies: boolean = false;
+
+  static pretifyDate(dateString: string){
+    let date = new Date(Date.parse(dateString));
+    let options = {"dateStyle": "medium", "timeStyle": "short"};
+    // @ts-ignore
+    return date.toLocaleString("lt-LT", options);
+  }
 }
 
 export class Player {
@@ -60,10 +67,17 @@ export class PlayerStats {
 
 export class GameScores {
   game: Game;
-  playerScores: Array<PlayerScore> = [];
+  scores: Array<PlayerScore> = [];
 
   constructor(jsonObject = {}){
     Object.assign(this, jsonObject);
+  }
+
+  static getWinner(gameScores : GameScores){
+    let ps = gameScores.scores.filter(ps => ps.is_winner);
+    if(!ps || ps.length === 0)
+      return "no winner";
+    return ps[0].player.nickname;
   }
 }
 

@@ -1,15 +1,31 @@
 <template>
-  <h5 class="title is-5">GameSummary</h5>
+  <div class="card">
+  <header class="card-header">
+  <p class="card-header-title">{{ Game.pretifyDate(gs.date) }} ; generations: {{ gs.number_of_generations }}
+  winner: {{ GameScores.getWinner(gs) }}</p>
+  </header>
+
+  </div>
+
 </template>
 
 <script>
+import { Game, GameScores } from "../classes";
 export default {
   props:{
-    GameScores: {
+    gameScores: {
       type: Object,
       required: true
     }
-  }
+  },
+  setup(props){
+    let gs = new GameScores(props.gameScores);
+    return {
+      gs,
+      GameScores,
+      Game,
+    }
+  },
 
 };
 </script>
