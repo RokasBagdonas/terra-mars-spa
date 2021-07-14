@@ -9,7 +9,7 @@
     <div class="tile is-parent">
       <div class="tile is-child box">
         <h3 class="title">Recent games</h3>
-        <p>Under construction, please stay away 🚧 🚧</p>
+        <p>🚧 Under construction 🚧</p>
       </div>
     </div>
   </div>
