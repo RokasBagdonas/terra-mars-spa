@@ -5,10 +5,9 @@
         <h3 class="title">Leaderboard</h3>
         <p>👷</p>
       </div>
-      <div class="column">
+      <div class="column" style="overflow-x: scroll;">
       <div class="container">
           <h3 class="title">Recent games</h3>
-          <p>🚧 Under construction 🚧</p>
           <suspense>
             <template #default>
               <GamesList />

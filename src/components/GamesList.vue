@@ -1,16 +1,13 @@
 <template>
-  <h5 class="title is-5">GamesList</h5>
-  <AsyncGameSummary v-for="gs in gamesScores" :key="gs.id"
-  :gameScores="gs"/>
+  <AsyncGameSummary v-for="gs in gamesScores" :key="gs.id" :gameScores="gs" />
 </template>
 
 <script>
-import {reactive, defineAsyncComponent} from "vue";
+import { defineAsyncComponent } from "vue";
 import GameSummary from "./GameSummary.vue";
 
 import LoadingSpinner from "./utilities/LoadingSpinner.vue";
 import { getGamesScores } from "../mars-api";
-
 
 const AsyncGameSummary = defineAsyncComponent({
   loader: () => import("./GameSummary.vue"),
@@ -21,16 +18,15 @@ const AsyncGameSummary = defineAsyncComponent({
 export default {
   components: {
     AsyncGameSummary,
-    GameSummary
+    GameSummary,
   },
-  async setup(){
-    //1. load 10 recent gameScores.
-    //2. for each gameScore, feed into GameSummary
+  async setup() {
     let gamesScores = [];
     gamesScores = (await getGamesScores())["data"]["results"];
+    console.dir(gamesScores);
     return {
-      gamesScores
-    }
+      gamesScores,
+    };
   },
 };
 </script>

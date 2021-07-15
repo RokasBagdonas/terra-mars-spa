@@ -1,5 +1,5 @@
 <template>
-    <div class="columns is-0">
+    <div class="columns">
       <div class="column">
         <div class="table-container">
           <table class="table is-hoverable">
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class="column" style="overflow-x: scroll;">
         <div class="table-container">
           <table class="table is-hoverable">
           <tbody>
