@@ -81,7 +81,6 @@ export default {
       isCalculatingStats.value = true;
       calcPlayerStats(ps.player.id)
         .then(function (response) {
-          console.log(response.data);
           if (response.status === 200) {
             ps = Object.assign(ps, new PlayerStats(response.data));
           }

@@ -99,7 +99,6 @@ export default {
   },
   methods: {
     async submitGame() {
-      console.log(this.canSubmitGame());
       if (!this.canSubmitGame()) {
         this.submitStatus = JSON.parse(
           '{ "error": "number of players is invalid" }'
@@ -111,13 +110,11 @@ export default {
       payload["scores"] = this.unrefArray(this.playerScores);
       await postGameScores(JSON.stringify(payload))
         .then((response) => {
-          console.log("response", response);
           this.submitStatus = response.status;
           this.submitted = true;
         })
         .catch((error) => {
           console.error(error);
-          console.log(error.response);
           this.submitStatus = error.response;
           this.submitted = true;
         });
@@ -128,7 +125,6 @@ export default {
       if (ps.length >= 1 && ps.length <= 5) {
         allowSubmit = true;
       }
-      console.log("allowSubmit", allowSubmit);
       return allowSubmit;
     },
     submitNumberOfPlayers() {
@@ -167,7 +163,6 @@ export default {
       let dict = {};
       for (let prop in obj) {
         dict[prop] = obj[prop];
-        console.log(prop);
       }
       return dict;
     },

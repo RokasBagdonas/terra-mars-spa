@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     setObject(e) {
-      console.log(e.target.value);
       let newValue = this.options[e.target.value];
       this.$emit("update:modelValue", newValue);
     },

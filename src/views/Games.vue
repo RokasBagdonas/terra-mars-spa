@@ -109,14 +109,12 @@ export default {
       }
     },
     sortTable(name) {
-      console.log("sort table event");
       this.setOrderByName(name);
       this.fetchGames(name);
     },
   },
   // Vue lifecycle ------------------------------------------------------------
   created: function () {
-    console.log("created hook");
   },
   mounted: function () {
     this.fetchGames();
