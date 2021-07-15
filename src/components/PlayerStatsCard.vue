@@ -9,7 +9,7 @@
         </div>
       </div>
     </header>
-    <div class="card-content">
+    <div class="card-content" style="overflow-x:scroll;">
       <div class="tile is-ancestor is-parent">
         <div class="tile is-child box">
           <p>

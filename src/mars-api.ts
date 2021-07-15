@@ -103,6 +103,7 @@ export function postGameScores(payload: String) {
   })
 }
 
+//limit = 15, offset = 0, order_by ="-win_percentage", min_games_played="20"
 // PlayerStats ================================================================
 export async function getPlayersStats(params) {
   return await axios.get(ROOT_URL + ENDPOINTS["player_stats"], {
