@@ -65,7 +65,7 @@ export function getGameScores(id) {
     {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }
 
-export async function getGamesScores(limit = 15, offset = 0, order_by = "-date"){
+export async function getGamesScores(limit = 15, offset = 0, order_by = "-date") {
   return axios.get(ROOT_URL + ENDPOINTS["game_scores"], {
     params: {
       limit: limit,
@@ -104,14 +104,17 @@ export function postGameScores(payload: String) {
 }
 
 // PlayerStats ================================================================
-export async function getPlayersStats(){
-  return await axios.get(ROOT_URL + ENDPOINTS["player_stats"],
-    {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
+export async function getPlayersStats(params) {
+  return await axios.get(ROOT_URL + ENDPOINTS["player_stats"], {
+    params: params,
+    headers: {Authorization: `Bearer ${auth.getAuthToken()}`},
+  });
 }
 
-export async function calcPlayerStats(player_id: String){
+export async function calcPlayerStats(player_id: String) {
   return await axios.get(ROOT_URL + ENDPOINTS["calc_player_stats"],
     {
-      params:  {player_id: player_id},
-      headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
+      params: {player_id: player_id},
+      headers: {Authorization: `Bearer ${auth.getAuthToken()}`},
+    });
 }

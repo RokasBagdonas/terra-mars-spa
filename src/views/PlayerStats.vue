@@ -1,9 +1,11 @@
 <template>
-  <h3 class="title is-3">PlayerStats View</h3>
+  <h3 class="title is-3">Player Statistics</h3>
   <div class="container">
-    <div v-for="ps in playersStats" v-bind:key="ps.id">
-      <PlayerStatsCard :playerStats="ps" />
-    </div>
+    <PlayerStatsCard
+      v-for="ps in playersStats"
+      v-bind:key="ps.id"
+      :playerStats="ps"
+    />
   </div>
 </template>
 
@@ -21,14 +23,12 @@ export default {
     // 1. fetch player stats
     let playersStats = ref([]);
     const fetchPlayerStats = async () => {
-      let result = await getPlayersStats();
-      console.dir(result.data);
+      let params = { ordering: "-games_played" };
+      let result = await getPlayersStats(params);
       if (result.status != "200") console.error(result.status);
       playersStats.value = result["data"]["results"].map(
         (ps) => new PlayerStats(ps)
-      // sort players
       );
-      playersStats.value.sort((a, b) => a.games_played > b.games_played ? -1 : 1);
     };
 
     onMounted(fetchPlayerStats);
