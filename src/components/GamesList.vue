@@ -1,9 +1,10 @@
 <template>
+<p class="content">{{ params }}</p>
   <AsyncGameSummary v-for="gs in gamesScores" :key="gs.id" :gameScores="gs" />
 </template>
 
 <script>
-import { defineAsyncComponent } from "vue";
+import { watch, ref, defineAsyncComponent} from "vue";
 import GameSummary from "./GameSummary.vue";
 
 import LoadingSpinner from "./utilities/LoadingSpinner.vue";
@@ -20,12 +21,36 @@ export default {
     AsyncGameSummary,
     GameSummary,
   },
-  async setup() {
-    let gamesScores = [];
-    gamesScores = (await getGamesScores())["data"]["results"];
-    console.dir(gamesScores);
+  props: {
+    params: {
+      type: Object,
+      required: false,
+    },
+  },
+  async setup(props) {
+    const gamesScores = ref([]);
+    let params = {
+      offset: 0,
+      limit: 15,
+      ordering: "-date",
+    };
+
+    if(props.params){
+      console.log("params is provided");
+      params = props.params;
+    }
+
+    const fetchGamesScores = async function(params) {
+      console.log("fetchGamesScores");
+      gamesScores.value = (await getGamesScores(params))["data"]["results"];
+    };
+
+    await fetchGamesScores(params);
+    watch(props, (props) => fetchGamesScores(props.params));
+
     return {
       gamesScores,
+      props,
     };
   },
 };
