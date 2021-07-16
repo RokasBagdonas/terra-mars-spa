@@ -65,13 +65,9 @@ export function getGameScores(id) {
     {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }
 
-export async function getGamesScores(limit = 15, offset = 0, order_by = "-date") {
+export async function getGamesScores(params) {
   return axios.get(ROOT_URL + ENDPOINTS["game_scores"], {
-    params: {
-      limit: limit,
-      offset: offset,
-      ordering: order_by,
-    },
+    params: params,
     headers: {Authorization: `Bearer ${auth.getAuthToken()}`},
   })
 }
