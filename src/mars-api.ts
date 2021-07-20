@@ -114,3 +114,11 @@ export async function calcPlayerStats(player_id: String) {
       headers: {Authorization: `Bearer ${auth.getAuthToken()}`},
     });
 }
+
+export async function postPlayer(player: Object) {
+  return await axios.post(ROOT_URL + ENDPOINTS["players"],
+    {
+      data: player,
+      headers: {Authorization: `Bearer ${auth.getAuthToken()}`},
+    });
+}
