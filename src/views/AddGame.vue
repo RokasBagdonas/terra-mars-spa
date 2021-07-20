@@ -1,37 +1,37 @@
 <template>
-<div class="container">
-  <Suspense>
-    <template #default>
-      <GameFormAsyncWrapper :game="game" />
-    </template>
-    <template #fallback>Preparing game form...</template>
-  </Suspense>
-  <div class="level">
-    <div class="level-left">
-      <div class="level-item">
-        <BaseNumberInput
-          label="number of players?"
-          v-model="numberOfPlayers"
-          type="number"
-        />
-      </div>
-      <div class="level-item">
-        <button type="button" class="button" @click="submitNumberOfPlayers">
-          confirm
-        </button>
+  <div class="container">
+    <Suspense>
+      <template #default>
+        <GameFormAsyncWrapper :game="game" />
+      </template>
+      <template #fallback>Preparing game form...</template>
+    </Suspense>
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <BaseNumberInput
+            label="number of players?"
+            v-model="numberOfPlayers"
+            type="number"
+          />
+        </div>
+        <div class="level-item">
+          <button type="button" class="button" @click="submitNumberOfPlayers">
+            confirm
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="container is-fluid">
-  <Suspense v-if="submittedNumberOfPlayers">
-    <template #default>
-      <PlayerScoresFormAsyncWrapper :playerScores="playerScores" />
-    </template>
-    <template #fallback>Preparing player scores form...</template>
-  </Suspense>
-</div>
+  <div class="container is-fluid">
+    <Suspense v-if="submittedNumberOfPlayers">
+      <template #default>
+        <PlayerScoresFormAsyncWrapper :playerScores="playerScores" />
+      </template>
+      <template #fallback>Preparing player scores form...</template>
+    </Suspense>
+  </div>
 
   <div class="container" v-if="playerScores.length > 0">
     <div class="level">
@@ -40,44 +40,31 @@
           Add Game
         </button>
       </div>
-      <div class="modal" :class="{ 'is-active': submitted }">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-          <div class="box">
-            <p v-if="submitStatus == '201'">Successfully submitted :)</p>
-            <p v-else>
-              <vue-json-pretty :data="submitStatus" />
-            </p>
-          </div>
-        </div>
-        <button
-          class="modal-close is-large"
-          aria-label="close"
-          @click="submitted = false"
-        ></button>
-      </div>
+      <Popup
+        :message="submitStatus"
+        :isActive="submitted"
+        @popup-closed="() => (submitted = false)"
+      />
     </div>
   </div>
-
 </template>
 
 
 <script>
 /*'use-strict';*/
-import { ref, unref, toRaw, isRef } from "vue";
-import VueJsonPretty from "vue-json-pretty";
-import "vue-json-pretty/lib/styles.css";
+import { ref } from "vue";
 
 import { Game, PlayerScore } from "../classes";
 import { postGameScores } from "../mars-api";
 import GameFormAsyncWrapper from "../components/GameFormAsyncWrapper";
 import PlayerScoresFormAsyncWrapper from "../components/PlayerScoresFormAsyncWrapper";
+import Popup from "../components/utilities/Popup";
 
 export default {
   components: {
     GameFormAsyncWrapper,
     PlayerScoresFormAsyncWrapper,
-    VueJsonPretty,
+    Popup,
   },
   setup() {
     let playerScores = ref([]);

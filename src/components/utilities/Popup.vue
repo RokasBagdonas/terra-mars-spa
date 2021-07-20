@@ -3,7 +3,7 @@
     <div class="modal-background"></div>
     <div class="modal-content">
     <p class="box">
-      {{ message }}
+      {{ "201" == message ? "Success" : message }}
     </p>
     </div>
     <button
