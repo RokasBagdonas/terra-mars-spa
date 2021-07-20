@@ -18,8 +18,6 @@
             <router-link :to="{name: 'Games'}" class="navbar-item">Games</router-link>
             <router-link :to="{name: 'PlayerStats'}" class="navbar-item">Player Stats</router-link>
             <router-link :to="{name: 'Add Player'}" class="navbar-item">Add Player</router-link>
-            <a class="navbar-item" href="">About</a>
-            <a class="navbar-item" href="/mars_api">API</a>
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
