@@ -1,5 +1,4 @@
 <template>
-
 <div class="container">
   <Suspense>
     <template #default>

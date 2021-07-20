@@ -13,7 +13,7 @@
     <Popup
       :message="submitMessage"
       :isActive="submitted"
-      @popupClosed="() => (submitted = false)"
+      @popup-closed="() => (submitted = false)"
     />
   </div>
 </template>
@@ -36,29 +36,25 @@ export default {
     let player = ref(new Player());
     const submitMessage = ref("");
     const submitted = ref(false);
-
-    const processAddPlayer = function (player) {
+    const processAddPlayer = function () {
       // TODO: spinner
       submitted.value = true;
-      postPlayer(player)
+      postPlayer(player.value)
         // 2xx response (Axios api)
         .then((response) => {
           submitMessage.value = "Successfully created";
           console.log(response);
         })
         .catch((error) => {
-          submitMessage.value = error.message;
+          submitMessage.value = error.response.data;
           console.error(error);
         });
-      /*.finally(() => {*/
-      /*submitted = false;*/
-      /*});*/
     };
 
     return {
       player,
-      processAddPlayer,
       submitMessage,
+      processAddPlayer,
       submitted,
     };
   },

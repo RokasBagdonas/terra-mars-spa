@@ -88,6 +88,7 @@ export async function getCorporations() {
     {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}, });
 }
 
+//POST ========================================================================
 export function postGameScores(payload: String) {
   return axios({
     url: ROOT_URL + ENDPOINTS["game_scores"], data: payload, method: "post", headers:
@@ -96,6 +97,17 @@ export function postGameScores(payload: String) {
       Authorization: `Bearer ${auth.getAuthToken()}`
     }
   })
+}
+
+export async function postPlayer(player: Object) {
+  let url = ROOT_URL + ENDPOINTS["players"];
+  console.dir(player);
+  return await axios.post(url, JSON.stringify(player), {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${auth.getAuthToken()}`
+    },
+  });
 }
 
 //limit = 15, offset = 0, order_by ="-win_percentage", min_games_played="20"
@@ -115,10 +127,3 @@ export async function calcPlayerStats(player_id: String) {
     });
 }
 
-export async function postPlayer(player: Object) {
-  return await axios.post(ROOT_URL + ENDPOINTS["players"],
-    {
-      data: player,
-      headers: {Authorization: `Bearer ${auth.getAuthToken()}`},
-    });
-}

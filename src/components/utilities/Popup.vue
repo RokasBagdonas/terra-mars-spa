@@ -1,10 +1,10 @@
 <template>
-  submitted: {{ active }} <br/>
-  message: {{ message }}
-  <div class="modal" :class="{ 'is-active': active }">
+  <div class="modal" :class="{ 'is-active': isActive }">
     <div class="modal-background"></div>
     <div class="modal-content">
+    <p class="box">
       {{ message }}
+    </p>
     </div>
     <button
       class="modal-close is-large"
@@ -18,7 +18,6 @@
 export default {
   props: {
     message: {
-      type: String,
       required: true,
     },
     isActive: {
@@ -26,18 +25,9 @@ export default {
       required: true,
     },
   },
-  setup(props) {
-    let active = props.isActive;
-    console.log(props.isActive);
-
-    return {
-      active,
-    };
-  },
+  emits: ["popupClosed"],
   methods: {
-    closeModal(e){
-      console.log("++++ Emitted! +++++");
-      this.active = false;
+    closeModal(){
       this.$emit('popupClosed');
 
     },
