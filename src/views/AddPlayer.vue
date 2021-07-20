@@ -1,6 +1,4 @@
 <template>
-  <h3 class="title is-3">Add Player</h3>
-  {{ player }}
   <div class="container">
     <PlayerForm :player="player" />
     <button
@@ -9,7 +7,6 @@
     >
       Submit
     </button>
-    <p class="content">AddPlayer submitted: {{ submitted }}</p>
     <Popup
       :message="submitMessage"
       :isActive="submitted"
